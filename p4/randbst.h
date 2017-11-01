@@ -15,9 +15,9 @@ public:
 	virtual void insert(const string&);
 	virtual void remove(const string&);
 private:
-	virtual void insert(TNode*&, const string&);
-    virtual void remove(const string&, TNode*&);
-    bool checkCount(Tnode*&);
+	void randInsert(TNode*&, const string&);
+    void randRemove(const string&, TNode*&);
+    bool fixCount(Tnode*&);
 };
 
 #endif
