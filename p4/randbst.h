@@ -16,8 +16,10 @@ public:
 	virtual void remove(const string&);
 private:
 	void randInsert(TNode*&, const string&);
-    void randRemove(const string&, TNode*&);
+    void randRemove(TNode*&, const string&);
+    TNode randZip(TNode*, TNode*);
     bool fixCount(Tnode*&);
+
 };
 
 #endif

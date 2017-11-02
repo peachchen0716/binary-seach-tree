@@ -32,6 +32,13 @@ public:
     friend ostream& operator << (ostream&, const BST&);
     
 protected:
+    TNode* root;
+
+    int searchHit;
+    int searchMiss;
+    int totalHit;
+    int totalMiss;
+
     void rootInsert(const string&, TNode*&);
     void rotateLeft(TNode*&);
     void rotateRight(TNode*&);
@@ -46,13 +53,6 @@ private:
         TNode* right;
         TNode(const string& w) : word(w), count(1), left(0), right(0) {}
     };
-    
-    TNode* root;
-
-    int searchHit;
-    int searchMiss;
-    int totalHit;
-    int totalMiss;
     
     // Private member functions implementing recursive traversals or searches.
     virtual void insert(TNode*&, const string&);
