@@ -18,18 +18,18 @@ BST::~BST() {
     if (root) kill(root);
 }
 
-void BST::insert(const string& w) {
+void BST::insert(int w) {
     // Call a private function to do the insertion, starting at the root.
     insert(root, w);
 }
 
-void BST::insert(TNode*& p, const string& w) {
+void BST::insert(TNode*& p, int w) {
     if (p == NULL) {
         // The node is not in the tree: make a new node.
         p = new TNode(w);
-    } else if (w == p->word) {
+    } else if (w == p->num) {
         // The node is in the tree already: increment its counter.
-    } else if (w < p->word) {
+    } else if (w < p->num) {
         // Given w is too small, so search the left subtree.
         insert(p->left, w);
     } else {  // w > p->word
@@ -38,15 +38,15 @@ void BST::insert(TNode*& p, const string& w) {
     }
 }
 
-void BST::remove(const string& w) {
+void BST::remove(int w) {
     remove(w, root);
 }
 
-void BST::remove(const string& w, TNode*& p) {
+void BST::remove(int w, TNode*& p) {
     // If there is nothing in the subtree, the element is not in the tree.
     if (p == NULL) return;
-    if (w < p->word) remove(w, p->left);
-    if (w > p->word) remove(w, p->right);
+    if (w < p->num) remove(w, p->left);
+    if (w > p->num) remove(w, p->right);
     // At this point, we know that w equals p->word.
     TNode* q = p;
     if (p->right == NULL) {
@@ -78,20 +78,50 @@ BST::TNode* BST::removeSmallest(TNode*& p) {
     return ans;
 }
 
-void BST::search(){
-    
+bool BST::search(int k){
+    if (p == NULL) {
+        // The node is not in the tree: make a new node.
+        return false;
+    } else if (w == p->num) {
+        // The node is in the tree
+    	return true;
+    } else if (w < p->num) {
+        // Given w is too small, so search the left subtree.
+        return search(p->left, w);
+    } else {  // w > p->word
+        // Given w is too big, so search the right subtree.
+    	return search(p->right, w);
+    }
 }
 
 void BST::rootRemove(){
 
 }
 
-void BST::rotateLeft(){
-
+void BST::rootInsert(int k, TNode*& p){
+	if (!p){
+		p = new TNode(k);
+	}else if (k < p->left){
+		rootInsert(k, p->right);
+		rotateRight(p);
+	}else{
+		rootInsert(k, p->left);
+		rotateLeft(p);
+	}
 }
 
-void BST::rotateRight(){
+void BST::rotateLeft(TNode*& p){
+	TNode* q = p->right;
+	p->right = q->left;
+	q->left = p;
+	p = q;
+}
 
+void BST::rotateRight(TNode*& p){
+	TNode* q = p->left;
+	p->left = q->right;
+	q->right = p;
+	p = q;
 }
 
 
