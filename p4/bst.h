@@ -6,17 +6,18 @@
 //  Copyright © 2017 Zhou, Harry. All rights reserved.
 //
 
-#ifndef bst_hpp
-#define bst_hpp
+#ifndef bst_h
+#define bst_h
 
 #include <stdio.h>
 #include <cstddef>
 #include <string>
+using namespace std;
 
 class BST {
 public:
     BST() : root(NULL), searchHit(0), searchMiss(0), totalHit(0), totalMiss(0) {}
-    ~BST();
+    virtual ~BST();
     
     // Insert the item in the tree if it is not already there; increment
     // the item's counter if it is already there.
@@ -31,12 +32,12 @@ public:
     friend ostream& operator << (ostream&, const BST&);
     
 protected:
-    void rootInsert(int, TNode*&);
-    void rotateLeft(TNode*&);
-    void rotateRight(TNode*&);
+//    void rootInsert(int, TNode*&);
+//    void rotateLeft(TNode*&);
+//    void rotateRight(TNode*&);
 
 private:
-    
+// Ask him if we need to put TNode into protected.
     class TNode {
     public:
         int num;
@@ -47,6 +48,9 @@ private:
     };
     
     TNode* root;
+    void rootInsert(int, TNode*&);
+    void rotateLeft(TNode*&);
+    void rotateRight(TNode*&);
 
     int searchHit;
     int searchMiss;
@@ -54,8 +58,8 @@ private:
     int totalMiss;
     
     // Private member functions implementing recursive traversals or searches.
-    virtual void insert(TNode*&, int);
-    virtual void remove(int, TNode*&);
+    void insert(TNode*&, int);
+    void remove(int, TNode*&);
     TNode* removeSmallest(TNode*&);
     int count(TNode*) const;
     void kill(TNode*);

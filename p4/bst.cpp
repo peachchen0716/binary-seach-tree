@@ -81,22 +81,33 @@ BST::TNode* BST::removeSmallest(TNode*& p) {
 bool BST::search(int k){
     if (p == NULL) {
         // The node is not in the tree: make a new node.
+    	searchMiss ++;
         return false;
-    } else if (w == p->num) {
+    } else if (k == p->num) {
         // The node is in the tree
+    	searchHit ++;
     	return true;
-    } else if (w < p->num) {
-        // Given w is too small, so search the left subtree.
-        return search(p->left, w);
-    } else {  // w > p->word
-        // Given w is too big, so search the right subtree.
-    	return search(p->right, w);
+    } else if (k < p->num) {
+    	// Given k is too small, so search the left subtree.
+    	if(search(p->left, k)){
+    		totalHit++;
+    		return true;
+    	}else{
+    		totalMiss++;
+    		return false;
+    	}
+    } else {  // k > p->word
+    	// Given k is too big, so search the right subtree.
+    	if(search(p->right, k)){
+    		totalHit++;
+    		return true;
+    	}else{
+    		totalMiss++;
+    		return false;
+    	}
     }
 }
 
-void BST::rootRemove(){
-
-}
 
 void BST::rootInsert(int k, TNode*& p){
 	if (!p){
