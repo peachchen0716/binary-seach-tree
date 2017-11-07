@@ -18,18 +18,18 @@
 
 int main(){
 	srand48(time(0));
-	
-	int num, search, remove;
+
+	int num, num_search, num_remove;
 	cout << "Number of keys to be inserted: ";
 	cin >> num;
 	string name;
 	cout << "Name of the file: ";
 	cin >> name;
 	cout << "Number of removes to be performed: ";
-	cin >> remove;
+	cin >> num_remove;
 	cout << "Number of searches to be performed: ";
-	cin >> search;
-	
+	cin >> num_search;
+
 	BST tree;
 	ifstream inc;
 	inc.open(name.c_str());
@@ -42,5 +42,8 @@ int main(){
 		inc >> temp;
 		tree.insert(temp);
 	}
+
+	//remove a*N times even int from 2 to 2N for ordinary and randomized trees
+	tree.report();
 	return 0;
 }
