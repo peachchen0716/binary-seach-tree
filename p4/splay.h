@@ -8,20 +8,20 @@
 
 #include "bst.h"
 
-class Splay : public BST
+class SplayBST : public BST
 {
 public:
-	Splay();
+	SplayBST();
 	virtual void insert(int);
 	virtual void remove(int);
 	virtual bool search(int);
-	
+
 private:
 	void insert(TNode*&, int);
-    void remove(TNode*&, int);
-    void normalRemove(TNode*&);
-    bool search(TNode*&, int);
-    
+  void remove(TNode*&, int);
+  void normalRemove(TNode*&);
+  bool search(TNode*&, int);
+
 };
 
 
