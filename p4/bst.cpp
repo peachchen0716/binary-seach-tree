@@ -18,35 +18,45 @@ BST::~BST() {
     if (root) kill(root);
 }
 
-void BST::insert(const string& w) {
+void BST::insert(int w) {
     // Call a private function to do the insertion, starting at the root.
     insert(root, w);
 }
 
-void BST::insert(TNode*& p, const string& w) {
+void BST::insert(TNode*& p, int w) {
     if (p == NULL) {
         // The node is not in the tree: make a new node.
+        l++;
+        numNode++;
         p = new TNode(w);
-    } else if (w == p->word) {
+    } else if (w == p->num) {
         // The node is in the tree already: increment its counter.
-    } else if (w < p->word) {
+    } else if (w < p->num) {
         // Given w is too small, so search the left subtree.
+        l++;
         insert(p->left, w);
     } else {  // w > p->word
         // Given w is too big, so search the right subtree.
+        l++;
         insert(p->right, w);
     }
 }
 
-void BST::remove(const string& w) {
+void BST::remove(int w) {
     remove(w, root);
 }
 
-void BST::remove(const string& w, TNode*& p) {
+void BST::remove(int w, TNode*& p) {
     // If there is nothing in the subtree, the element is not in the tree.
     if (p == NULL) return;
-    if (w < p->word) remove(w, p->left);
-    if (w > p->word) remove(w, p->right);
+    if (w < p->num){
+      l--;
+      remove(w, p->left);
+    }
+    if (w > p->num){
+      l--;
+      remove(w, p->right);
+    }
     // At this point, we know that w equals p->word.
     TNode* q = p;
     if (p->right == NULL) {
@@ -64,6 +74,7 @@ void BST::remove(const string& w, TNode*& p) {
         p->left = q->left;
         p->right = q->right;
     }
+    l--;
     delete q;
 }
 
@@ -78,20 +89,59 @@ BST::TNode* BST::removeSmallest(TNode*& p) {
     return ans;
 }
 
-void BST::search(){
-    
+bool BST::search(const int k){
+    search(root, k);
 }
 
-void BST::rootRemove(){
-
+bool BST::search(TNode*& p, const int k){
+    if (p == NULL) {
+        // The node is not in the tree: make a new node.
+        return false;
+    } else if (k == p->num) {
+        // The node is in the tree
+    	return true;
+    } else if (k < p->num) {
+    	// Given k is too small, so search the left subtree.
+    	if(search(p->left, k)){
+    		return true;
+    	}else{
+    		return false;
+    	}
+    } else {  // k > p->word
+    	// Given k is too big, so search the right subtree.
+    	if(search(p->right, k)){
+    		return true;
+    	}else{
+    		return false;
+    	}
+    }
 }
 
-void BST::rotateLeft(){
 
+void BST::rootInsert(int k, TNode*& p){
+	if (!p){
+		p = new TNode(k);
+	}else if (k < p->num){
+		rootInsert(k, p->right);
+		rotateRight(p);
+	}else{
+		rootInsert(k, p->left);
+		rotateLeft(p);
+	}
 }
 
-void BST::rotateRight(){
+void BST::rotateLeft(TNode*& p){
+	TNode* q = p->right;
+	p->right = q->left;
+	q->left = p;
+	p = q;
+}
 
+void BST::rotateRight(TNode*& p){
+	TNode* q = p->left;
+	p->left = q->right;
+	q->right = p;
+	p = q;
 }
 
 
@@ -108,11 +158,16 @@ void BST::print(ostream& out, TNode* p) const {
     if (p->right) print(out, p->right);        // Print larger words
 }
 
+void BST::report() const{
+    cout << "Total hit: " << l << endl;
+    cout << "Number of nodes: " << numNode << endl;
+    cout << "Search hit: " << (double)l/numNode << endl;
+    cout << "Search miss: " << (double)l/numNode+1 << endl;
+}
+
 // Friend output operator.
 ostream& operator<<(ostream& out, const BST& wt) {
     // Call a private function to do the printing, starting at the root.
     if (wt.root) wt.print(out, wt.root);
     return out;
 }
-
-

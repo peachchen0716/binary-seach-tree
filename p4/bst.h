@@ -6,66 +6,71 @@
 //  Copyright © 2017 Zhou, Harry. All rights reserved.
 //
 
-#ifndef bst_hpp
-#define bst_hpp
+#ifndef bst_h
+#define bst_h
 
 #include <stdio.h>
 #include <cstddef>
 #include <string>
+using namespace std;
 
 class BST {
 public:
-    BST() : root(NULL), searchHit(0), searchMiss(0), totalHit(0), totalMiss(0) {}
-    ~BST();
-    
+    BST() : root(NULL), searchHit(0.0), searchMiss(0.0), l(0),
+     numNode(0) {}
+    virtual ~BST();
+
     // Insert the item in the tree if it is not already there; increment
     // the item's counter if it is already there.
-    virtual void insert(const string&);
-    
-    virtual void search(const string&);
-    
+    virtual void insert(int);
+    virtual bool search(const int);
+
     // Remove the item from the tree if it is there and return the value of
     // the counter stored with the item.  If the item is not there, return 0.
-    virtual void remove(const string&);
-    
+    virtual void remove(int);
+
+    void report() const;
+
     // Print the items and counts stored in the tree in order.
     friend ostream& operator << (ostream&, const BST&);
-    
+
+
 protected:
-    TNode* root;
-
-    int searchHit;
-    int searchMiss;
-    int totalHit;
-    int totalMiss;
-
-    void rootInsert(const string&, TNode*&);
-    void rotateLeft(TNode*&);
-    void rotateRight(TNode*&);
-
-private:
-    
     class TNode {
     public:
-        string word;
+        int num;
         int count;
         TNode* left;
         TNode* right;
-        TNode(const string& w) : word(w), count(1), left(0), right(0) {}
+        TNode(int w) : num(w), count(1), left(0), right(0) {}
     };
-    
+  
+    TNode* root;
+
+    double searchHit;
+    double searchMiss;
+    int l;
+    int numNode;
+
+   void rootInsert(int, TNode*&);
+   void rotateLeft(TNode*&);
+   void rotateRight(TNode*&);
+
+   TNode* removeSmallest(TNode*&);
+
+private:
+
     // Private member functions implementing recursive traversals or searches.
-    virtual void insert(TNode*&, const string&);
-    virtual void remove(const string&, TNode*&);
-    TNode* removeSmallest(TNode*&);
+    void insert(TNode*&, int);
+    void remove(int, TNode*&);
+    bool search(TNode*&, const int);
     int count(TNode*) const;
     void kill(TNode*);
     void print(ostream&, TNode*) const;
 
-    
     // Static auxilliary methods.
     static void sort(TNode**, int, int);
-    
+
     // Disable copy constructor and assignment operator.
     BST(const BST&);
     BST& operator=(const BST&);
