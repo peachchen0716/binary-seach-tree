@@ -5,6 +5,7 @@
 
 #include "bst.h"
 
+#include <ctime>
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
@@ -15,6 +16,7 @@
 #include <string>
 #include <queue>
 #include <iomanip>
+
 
 int main(){
 	srand48(time(0));

@@ -8,16 +8,17 @@
 
 #include "bst.h"
 
-class RandBST : public BST 
+class RandomizedBST : public BST
 {
 public:
-	RandBST();
-	virtual void insert(const string&);
-	virtual void remove(const string&);
+	RandomizedBST();
+	virtual void insert(int);
+	virtual void remove(int);
 private:
-	void randInsert(TNode*&, const string&);
-    void randRemove(const string&, TNode*&);
-    bool fixCount(Tnode*&);
+	void randInsert(int, TNode*&);
+  void randRemove(int, TNode*&);
+  TNode* randZip(TNode*, TNode*);
+  void fixCount(Tnode*);
 };
 
 #endif

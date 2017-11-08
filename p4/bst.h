@@ -34,6 +34,7 @@ public:
     // Print the items and counts stored in the tree in order.
     friend ostream& operator << (ostream&, const BST&);
 
+
 protected:
     class TNode {
     public:
@@ -43,7 +44,7 @@ protected:
         TNode* right;
         TNode(int w) : num(w), count(1), left(0), right(0) {}
     };
-
+  
     TNode* root;
 
     double searchHit;
@@ -58,11 +59,6 @@ protected:
    TNode* removeSmallest(TNode*&);
 
 private:
-// Ask him if we need to put TNode into protected.
-
-    // void rootInsert(int, TNode*&);
-    // void rotateLeft(TNode*&);
-    // void rotateRight(TNode*&);
 
     // Private member functions implementing recursive traversals or searches.
     void insert(TNode*&, int);
