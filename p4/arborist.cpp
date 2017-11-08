@@ -5,7 +5,6 @@
 
 #include "bst.h"
 
-#include <ctime>
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
@@ -17,13 +16,12 @@
 #include <queue>
 #include <iomanip>
 
-
 int main(){
 	srand48(time(0));
 
-	int num, num_search, num_remove;
+	int N, num_search, num_remove;
 	cout << "Number of keys to be inserted: ";
-	cin >> num;
+	cin >> N;
 	string name;
 	cout << "Name of the file: ";
 	cin >> name;
@@ -32,20 +30,40 @@ int main(){
 	cout << "Number of searches to be performed: ";
 	cin >> num_search;
 
-	BST tree;
+	BST ordinary;
 	ifstream inc;
 	inc.open(name.c_str());
 	if (inc.fail()) {
 		cerr << "Error: Cannot open " << name << endl;
 		exit(1);
 	}
+
+	int recent[N/10];
+
 	int temp;
-	for (int i = 0; i < num; i++){
+	for (int i = 0; i < N; i++){
 		inc >> temp;
-		tree.insert(temp);
+		if (i >= 9*N/10){
+			recent[i-9*N/10] = temp;
+		}
+		ordinary.insert(temp);
 	}
+	//search for the most recent nodes
+	//for (int i=0; i < N/10; i++){
+		//ordinary.search(recent[i]);
+	//}
+	ordinary.report();
 
 	//remove a*N times even int from 2 to 2N for ordinary and randomized trees
-	tree.report();
+	// for (int i=0; i < num_remove; i++){
+	// 	ordinary.remove(drand48()*2*(N-1)+2);
+	// }
+	// ordinary.report();
+
+	//search
+	for (int i=0; i < num_search; i++){
+		//ordinary.search(drand48()*2*(N-1)+2);
+	}
+	//ordinary.report();
 	return 0;
 }
