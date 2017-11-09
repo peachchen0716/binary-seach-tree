@@ -118,10 +118,10 @@ void BST::rootInsert(int k, TNode*& p){
 	if (!p){
 		p = new TNode(k);
 	}else if (k < p->key){
-		rootInsert(k, p->right);
+		rootInsert(k, p->left);
     rotateRight(p);
 	}else{
-		rootInsert(k, p->left);
+		rootInsert(k, p->right);
 		rotateLeft(p);
 	}
 }
@@ -174,6 +174,8 @@ void BST::print(ostream& out, TNode* p) const {
 }
 
 void BST::report(){
+    l = 0;
+    numNode = 0;
     inorder_traverse();
     cout << "Total hit: " << l << endl;
     cout << "Number of nodes: " << numNode << endl;

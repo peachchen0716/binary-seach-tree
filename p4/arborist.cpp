@@ -52,10 +52,8 @@ int main(){
 		}
 		ordinary.insert(temp);
 		random.insert(temp);
-		cout<<temp<<endl;
+		//cout<<temp<<endl;
 	}
-
-	//ordinary.remove(2000);
 
 	//search for the most recent nodes
 	//for (int i=0; i < N/10; i++){
@@ -63,12 +61,16 @@ int main(){
 	//}
 
 	ordinary.report();
-	//random.report();
+	random.report();
 	//remove a*N times even int from 2 to 2N for ordinary and randomized trees
-	// for (int i=0; i < num_remove; i++){
-	// 	ordinary.remove(drand48()*2*(N-1)+2);
-	// }
-	//ordinary.report();
+
+	cout << "\nAfter removing a*N times even int" << endl;
+	for (int i=0; i < num_remove*N; i++){
+		ordinary.remove(drand48()*2*(N-1)+2);
+		random.remove(drand48()*2*(N-1)+2);
+	}
+	ordinary.report();
+	random.report();
 
 	//search
 	for (int i=0; i < num_search; i++){

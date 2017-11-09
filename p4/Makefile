@@ -1,5 +1,6 @@
 CC=g++
-OPTIONS=-c -O2
+#OPTIONS=-g -c
+OPTIONS =-c -O2
 
 all: arborist
 
