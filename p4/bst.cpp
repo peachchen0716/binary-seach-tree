@@ -26,18 +26,14 @@ void BST::insert(int w) {
 void BST::insert(TNode*& p, int w) {
     if (p == NULL) {
         // The node is not in the tree: make a new node.
-        l++;
-        numNode++;
         p = new TNode(w);
-    } else if (w == p->num) {
+    } else if (w == p->key) {
         // The node is in the tree already: increment its counter.
-    } else if (w < p->num) {
+    } else if (w < p->key) {
         // Given w is too small, so search the left subtree.
-        l++;
         insert(p->left, w);
     } else {  // w > p->word
         // Given w is too big, so search the right subtree.
-        l++;
         insert(p->right, w);
     }
 }
@@ -49,13 +45,11 @@ void BST::remove(int w) {
 void BST::remove(int w, TNode*& p) {
     // If there is nothing in the subtree, the element is not in the tree.
     if (p == NULL) return;
-    if (w < p->num){
-      l--;
-      remove(w, p->left);
+    if (w < p->key){
+      return remove(w, p->left);
     }
-    if (w > p->num){
-      l--;
-      remove(w, p->right);
+    if (w > p->key){
+      return remove(w, p->right);
     }
     // At this point, we know that w equals p->word.
     TNode* q = p;
@@ -74,15 +68,17 @@ void BST::remove(int w, TNode*& p) {
         p->left = q->left;
         p->right = q->right;
     }
-    l--;
     delete q;
+    return;
 }
 
 // Return the address of the node with the smallest key in the tree pointed
 // to by p, and remove this node from the tree.
 BST::TNode* BST::removeSmallest(TNode*& p) {
     // Go left while there is a smaller element in the tree.
-    if (p->left) return removeSmallest(p->left);
+    if (p->left){
+      return removeSmallest(p->left);
+    }
     // No left child, so there is no smaller element in the tree.
     TNode* ans = p;
     p = p->right;    // Required since p is a reference.
@@ -90,17 +86,17 @@ BST::TNode* BST::removeSmallest(TNode*& p) {
 }
 
 bool BST::search(const int k){
+
     search(root, k);
 }
-
 bool BST::search(TNode*& p, const int k){
     if (p == NULL) {
         // The node is not in the tree: make a new node.
         return false;
-    } else if (k == p->num) {
+    } else if (k == p->key) {
         // The node is in the tree
     	return true;
-    } else if (k < p->num) {
+    } else if (k < p->key) {
     	// Given k is too small, so search the left subtree.
     	if(search(p->left, k)){
     		return true;
@@ -121,9 +117,9 @@ bool BST::search(TNode*& p, const int k){
 void BST::rootInsert(int k, TNode*& p){
 	if (!p){
 		p = new TNode(k);
-	}else if (k < p->num){
+	}else if (k < p->key){
 		rootInsert(k, p->right);
-		rotateRight(p);
+    rotateRight(p);
 	}else{
 		rootInsert(k, p->left);
 		rotateLeft(p);
@@ -144,6 +140,25 @@ void BST::rotateRight(TNode*& p){
 	p = q;
 }
 
+void BST::inorder_traverse(){
+  if (!root) return;
+  l++;
+  numNode++;
+  inorder(root, 1);
+}
+
+void BST::inorder(TNode*& p, int lvl){
+  if (p->left) {
+    inorder(p->left, lvl+1);
+    l+=lvl+1;
+    numNode++;
+  }
+  if (p->right) {
+    inorder(p->right, lvl+1);
+    l+=lvl+1;
+    numNode++;
+  }
+}
 
 // Postorder traversal
 void BST::kill(TNode* p) {
@@ -158,7 +173,8 @@ void BST::print(ostream& out, TNode* p) const {
     if (p->right) print(out, p->right);        // Print larger words
 }
 
-void BST::report() const{
+void BST::report(){
+    inorder_traverse();
     cout << "Total hit: " << l << endl;
     cout << "Number of nodes: " << numNode << endl;
     cout << "Search hit: " << (double)l/numNode << endl;

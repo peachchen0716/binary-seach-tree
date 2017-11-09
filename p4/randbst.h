@@ -16,9 +16,9 @@ public:
 	virtual void remove(int);
 private:
 	void randInsert(int, TNode*&);
-  void randRemove(int, TNode*&);
+  bool randRemove(int&, TNode*&);
   TNode* randZip(TNode*, TNode*);
-  void fixCount(Tnode*);
+  void fixCount(TNode*);
 };
 
 #endif

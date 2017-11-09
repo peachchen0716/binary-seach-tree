@@ -29,7 +29,7 @@ public:
     // the counter stored with the item.  If the item is not there, return 0.
     virtual void remove(int);
 
-    void report() const;
+    void report();
 
     // Print the items and counts stored in the tree in order.
     friend ostream& operator << (ostream&, const BST&);
@@ -38,13 +38,13 @@ public:
 protected:
     class TNode {
     public:
-        int num;
-        int count;
+        int key;
+        int n;
         TNode* left;
         TNode* right;
-        TNode(int w) : num(w), count(1), left(0), right(0) {}
+        TNode(int k) : key(k), n(1), left(0), right(0) {}
     };
-  
+
     TNode* root;
 
     double searchHit;
@@ -55,6 +55,8 @@ protected:
    void rootInsert(int, TNode*&);
    void rotateLeft(TNode*&);
    void rotateRight(TNode*&);
+   void inorder_traverse();
+   void inorder(TNode*&, int);
 
    TNode* removeSmallest(TNode*&);
 

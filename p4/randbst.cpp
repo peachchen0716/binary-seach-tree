@@ -4,44 +4,47 @@
  * CSC 321 Fall 2017
  */
 #include "randbst.h"
+#include <stdlib.h>
+#include <iostream>
 
 RandomizedBST::RandomizedBST() : BST(){}
 
 // Public
 void RandomizedBST::insert(int k){
-    randInsert(root, k);
+    randInsert(k, root);
 }
 
 // Public
-bool RandomizedBST::remove(int k) {
-    return remove(k, root);
+void RandomizedBST::remove(int k) {
+    randRemove(k, root);
 }
 
 // Private
 void RandomizedBST::randInsert(int k, TNode*& p){
+
     if (!p){
         p = new TNode(k);
-    }else if(drand48() * (p->count + 1) < 1){
-        rootInsert(p, k);
-    }else if(k < p->word){
-        randInsert(p->left, word);
-        p->count++;
+    }else if(drand48() * (p->n + 1) < 1){
+        rootInsert(k, p);
+    }else if(k < p->key){
+        randInsert(k, p->left);
+        p->n++;
     }else{
-        randInsert(p->right, word);
-        p->count++;
+        randInsert(k, p->right);
+        p->n++;
     }
 }
 
 // Private
-bool RandomizedBST::remove(int k, TNode*& p) {
+bool RandomizedBST::randRemove(int& k, TNode*& p) {
     bool b = true;
     if (!p) {
         b = false;
     } else if (k < p->key) {
-        b = remove(k, p->left);
+        b = randRemove(k, p->left);
         if (b) p->n--;
     } else if (k > p->key) {
-        b = remove(k, p->right);
+        b = randRemove(k, p->right);
         if (b) p->n--;
     } else {
         TNode* q = p;

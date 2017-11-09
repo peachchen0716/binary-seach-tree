@@ -4,6 +4,7 @@
 //
 
 #include "bst.h"
+#include "randbst.h"
 
 #include <stdio.h>
 #include <iostream>
@@ -20,6 +21,7 @@ int main(){
 	srand48(time(0));
 
 	int N, num_search, num_remove;
+
 	cout << "Number of keys to be inserted: ";
 	cin >> N;
 	string name;
@@ -31,6 +33,8 @@ int main(){
 	cin >> num_search;
 
 	BST ordinary;
+	RandomizedBST random;
+
 	ifstream inc;
 	inc.open(name.c_str());
 	if (inc.fail()) {
@@ -47,18 +51,24 @@ int main(){
 			recent[i-9*N/10] = temp;
 		}
 		ordinary.insert(temp);
+		random.insert(temp);
+		cout<<temp<<endl;
 	}
+
+	//ordinary.remove(2000);
+
 	//search for the most recent nodes
 	//for (int i=0; i < N/10; i++){
 		//ordinary.search(recent[i]);
 	//}
-	ordinary.report();
 
+	ordinary.report();
+	//random.report();
 	//remove a*N times even int from 2 to 2N for ordinary and randomized trees
 	// for (int i=0; i < num_remove; i++){
 	// 	ordinary.remove(drand48()*2*(N-1)+2);
 	// }
-	// ordinary.report();
+	//ordinary.report();
 
 	//search
 	for (int i=0; i < num_search; i++){
