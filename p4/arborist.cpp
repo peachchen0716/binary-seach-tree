@@ -5,6 +5,7 @@
 
 #include "bst.h"
 #include "randbst.h"
+#include "splay.h"
 
 #include <stdio.h>
 #include <iostream>
@@ -34,6 +35,7 @@ int main(){
 
 	BST ordinary;
 	RandomizedBST random;
+	SplayBST splaybst;
 
 	ifstream inc;
 	inc.open(name.c_str());
@@ -52,6 +54,7 @@ int main(){
 		}
 		ordinary.insert(temp);
 		random.insert(temp);
+		splaybst.insert(temp);
 		//cout<<temp<<endl;
 	}
 
@@ -62,6 +65,7 @@ int main(){
 
 	ordinary.report();
 	random.report();
+	splaybst.report();
 	//remove a*N times even int from 2 to 2N for ordinary and randomized trees
 
 	cout << "\nAfter removing a*N times even int" << endl;

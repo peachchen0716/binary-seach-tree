@@ -42,7 +42,8 @@ protected:
         int n;
         TNode* left;
         TNode* right;
-        TNode(int k) : key(k), n(1), left(0), right(0) {}
+        bool red;
+        TNode(int k) : key(k), n(1), left(0), right(0), red(true) {}
     };
 
     TNode* root;

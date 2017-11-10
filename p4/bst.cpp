@@ -86,9 +86,9 @@ BST::TNode* BST::removeSmallest(TNode*& p) {
 }
 
 bool BST::search(const int k){
-
-    search(root, k);
+    return search(root, k);
 }
+
 bool BST::search(TNode*& p, const int k){
     if (p == NULL) {
         // The node is not in the tree: make a new node.

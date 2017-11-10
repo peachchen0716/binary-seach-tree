@@ -4,10 +4,10 @@ OPTIONS =-c -O2
 
 all: arborist
 
-arborist: arborist.o bst.o randbst.o
-	$(CC) -o arborist arborist.o bst.o randbst.o
+arborist: arborist.o bst.o randbst.o splay.o
+	$(CC) -o arborist arborist.o bst.o randbst.o splay.o
 
-arborist.o: arborist.cpp bst.h randbst.h
+arborist.o: arborist.cpp bst.h randbst.h splay.h
 	$(CC) $(OPTIONS) arborist.cpp
 
 bst.o: bst.cpp bst.h
@@ -15,6 +15,9 @@ bst.o: bst.cpp bst.h
 
 randbst.o: bst.h randbst.cpp randbst.h
 	$(CC) $(OPTIONS) randbst.cpp
+	
+splay.o: bst.h splay.cpp splay.h
+	$(CC) $(OPTIONS) splay.cpp
 
 clean:
-	rm -f arborist arborist.o bst.o randbst.o
+	rm -f arborist arborist.o bst.o randbst.o splay.o

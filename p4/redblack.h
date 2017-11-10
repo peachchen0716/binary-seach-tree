@@ -3,22 +3,20 @@
 //
 // Arthur C, Harry Z
 
-#ifndef splay
-#define splay
+#ifndef redblack
+#define redblack
 
 #include "bst.h"
 
-class SplayBST : public BST
+class RedBlackBST : public BST
 {
 public:
-	SplayBST();
+	RedBlackBST();
 	virtual void insert(int);
-	virtual bool search(int);
 
 private:
 	void insert(int, TNode*&);
-	bool search(int, TNode*&);
-
+	bool red(TNode*&);
 };
 
 
