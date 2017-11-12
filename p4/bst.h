@@ -16,7 +16,7 @@ using namespace std;
 
 class BST {
 public:
-    BST() : root(NULL), searchHit(0.0), searchMiss(0.0), l(0),
+    BST() : root(NULL), searchHit(0.0), searchRecent(0), searchCount(0), l(0),
      numNode(0) {}
     virtual ~BST();
 
@@ -29,7 +29,7 @@ public:
     // the counter stored with the item.  If the item is not there, return 0.
     virtual void remove(int);
 
-    void report();
+    void report(string, bool);
 
     // Print the items and counts stored in the tree in order.
     friend ostream& operator << (ostream&, const BST&);
@@ -44,19 +44,21 @@ protected:
         TNode* right;
         bool red;
         TNode(int k) : key(k), n(1), left(0), right(0), red(true) {}
+        TNode(int k, TNode* p, TNode* q) : key(k), n(1), left(p), right(q), red(true) {}
     };
 
     TNode* root;
 
     double searchHit;
-    double searchMiss;
+    int searchRecent;
+    int searchCount;
     int l;
     int numNode;
 
    void rootInsert(int, TNode*&);
    void rotateLeft(TNode*&);
    void rotateRight(TNode*&);
-   void inorder_traverse();
+   void inorderTraverse();
    void inorder(TNode*&, int);
 
    TNode* removeSmallest(TNode*&);
@@ -70,6 +72,8 @@ private:
     int count(TNode*) const;
     void kill(TNode*);
     void print(ostream&, TNode*) const;
+
+    template<typename T> void printElement(T, const int&);
 
     // Static auxilliary methods.
     static void sort(TNode**, int, int);

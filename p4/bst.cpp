@@ -11,6 +11,8 @@
 #include <iostream>
 #include <cstddef>
 #include <cstdlib>
+#include <iomanip>
+
 using namespace std;
 
 BST::~BST() {
@@ -86,6 +88,7 @@ BST::TNode* BST::removeSmallest(TNode*& p) {
 }
 
 bool BST::search(const int k){
+    searchCount++;
     return search(root, k);
 }
 
@@ -95,9 +98,11 @@ bool BST::search(TNode*& p, const int k){
         return false;
     } else if (k == p->key) {
         // The node is in the tree
+      searchRecent++;
     	return true;
     } else if (k < p->key) {
     	// Given k is too small, so search the left subtree.
+      searchRecent++;
     	if(search(p->left, k)){
     		return true;
     	}else{
@@ -105,6 +110,7 @@ bool BST::search(TNode*& p, const int k){
     	}
     } else {  // k > p->word
     	// Given k is too big, so search the right subtree.
+      searchRecent++;
     	if(search(p->right, k)){
     		return true;
     	}else{
@@ -140,7 +146,7 @@ void BST::rotateRight(TNode*& p){
 	p = q;
 }
 
-void BST::inorder_traverse(){
+void BST::inorderTraverse(){
   if (!root) return;
   l++;
   numNode++;
@@ -173,14 +179,20 @@ void BST::print(ostream& out, TNode* p) const {
     if (p->right) print(out, p->right);        // Print larger words
 }
 
-void BST::report(){
+void BST::report(string type, bool recent){
     l = 0;
     numNode = 0;
-    inorder_traverse();
-    cout << "Total hit: " << l << endl;
-    cout << "Number of nodes: " << numNode << endl;
-    cout << "Search hit: " << (double)l/numNode << endl;
-    cout << "Search miss: " << (double)l/numNode+1 << endl;
+    inorderTraverse();
+    const int width = 8;
+    cout << "    " << left << setw(width) << type;
+    //cout << left << setw(width) << l;
+    //cout << left << setw(width) << numNode;
+    cout << left << setw(width) << (double)l/numNode;
+    cout << left << setw(width) << (double)l/numNode+1;
+    if (recent){
+      cout << left << setw(width) << (double)searchRecent/searchCount;
+    }
+    cout << endl;
 }
 
 // Friend output operator.

@@ -15,7 +15,7 @@ public:
 	virtual void insert(int);
 
 private:
-	void insert(int, TNode*&);
+	void redBlackInsert(int, TNode*&, bool);
 	bool red(TNode*&);
 };
 

@@ -6,6 +6,7 @@
 #include "bst.h"
 #include "randbst.h"
 #include "splay.h"
+#include "redblack.h"
 
 #include <stdio.h>
 #include <iostream>
@@ -21,26 +22,28 @@
 int main(){
 	srand48(time(0));
 
-	int N, num_search, num_remove;
+	int N;
+	string fileName;
+	double b, a;
 
 	cout << "Number of keys to be inserted: ";
 	cin >> N;
-	string name;
 	cout << "Name of the file: ";
-	cin >> name;
+	cin >> fileName;
 	cout << "Number of removes to be performed: ";
-	cin >> num_remove;
+	cin >> a;
 	cout << "Number of searches to be performed: ";
-	cin >> num_search;
+	cin >> b;
 
 	BST ordinary;
 	RandomizedBST random;
 	SplayBST splaybst;
+	RedBlackBST redblackbst;
 
 	ifstream inc;
-	inc.open(name.c_str());
+	inc.open(fileName.c_str());
 	if (inc.fail()) {
-		cerr << "Error: Cannot open " << name << endl;
+		cerr << "Error: Cannot open " << fileName << endl;
 		exit(1);
 	}
 
@@ -55,31 +58,55 @@ int main(){
 		ordinary.insert(temp);
 		random.insert(temp);
 		splaybst.insert(temp);
-		//cout<<temp<<endl;
+		redblackbst.insert(temp);
 	}
 
 	//search for the most recent nodes
-	//for (int i=0; i < N/10; i++){
-		//ordinary.search(recent[i]);
-	//}
-
-	ordinary.report();
-	random.report();
-	splaybst.report();
-	//remove a*N times even int from 2 to 2N for ordinary and randomized trees
-
-	cout << "\nAfter removing a*N times even int" << endl;
-	for (int i=0; i < num_remove*N; i++){
-		ordinary.remove(drand48()*2*(N-1)+2);
-		random.remove(drand48()*2*(N-1)+2);
+	for (int i=0; i < N/10; i++){
+		ordinary.search(recent[i]);
+		random.search(recent[i]);
+		splaybst.BST::search(recent[i]);
+		redblackbst.BST::search(recent[i]);
 	}
-	ordinary.report();
-	random.report();
+	cout << "  After " << N << " insertions from file " << fileName << ":" << endl;
+	const int width = 8;
+	cout << "    " << left << setw(width) << "Type";
+	cout << left << setw(width) << "Hits";
+	cout << left << setw(width) << "Misses";
+	cout << left << setw(width) << "Recent";
+	cout << endl;
+	ordinary.report("Leaf", true);
+	random.report("Rand", true);
+	splaybst.report("Splay", true);
+	redblackbst.report("RedBl", true);
+
+	//remove a*N times even int from 2 to 2N for ordinary and randomized trees
+	cout << "\n  After removing a*N times even int" << endl;
+	for (int i=0; i < a*N; i++){
+		int temp = 2*(int)(drand48()*(N-1))+2;
+		ordinary.remove(temp);
+		random.remove(temp);
+	}
+	cout << "    " << left << setw(width) << "Type";
+	cout << left << setw(width) << "Hits";
+	cout << left << setw(width) << "Misses";
+	cout << endl;
+	ordinary.report("Leaf", false);
+	random.report("Rand", false);
 
 	//search
-	for (int i=0; i < num_search; i++){
-		//ordinary.search(drand48()*2*(N-1)+2);
+	int search_success = 0;
+	for (int i=0; i < b*N; i++){
+		int temp = drand48()*(2*N-1)+1;
+		if (splaybst.search(temp))	search_success++;
 	}
-	//ordinary.report();
+	cout << endl;
+	cout << "  After " << search_success << " searches (" << search_success <<
+	" successful):" << endl;
+	cout << "    " << left << setw(width) << "Type";
+	cout << left << setw(width) << "Hits";
+	cout << left << setw(width) << "Misses";
+	cout << endl;
+	splaybst.report("Splay", false);
 	return 0;
 }

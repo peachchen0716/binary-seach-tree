@@ -3,8 +3,10 @@
  * M. J. Mossinghoff
  * CSC 321 Fall 2017
  */
+#include "bst.h"
+#include "redblack.h"
 
-RedBlackBST::RedBlackBST() : public BST() {} 
+RedBlackBST::RedBlackBST() : BST() {}
 
 // Public
 void RedBlackBST::insert(int k) {
@@ -54,6 +56,7 @@ void RedBlackBST::redBlackInsert(int k, TNode*& p, bool right) {
     		rotateRight(p);
     		p->red = true;
     		p->left->red = false;
+      }
     }
 }
 

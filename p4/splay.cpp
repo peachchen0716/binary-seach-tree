@@ -63,12 +63,15 @@ bool SplayBST::search(int k, TNode*& p) {
 		TNode*& q = p->left;
 		if (!q) {
 			return false;
-		} if (k < q->key) {
-			search(k, q->left);
-			rotateRight(p);  // zig-zig
+		}
+    if (k < q->key) {
+			if (search(k, q->left)){
+        rotateRight(p);  // zig-zig
+      }
 		} else if (k > q->key){
-			search(k, q->right);
-			rotateLeft(q);   // zig-zag
+			if (search(k, q->right)){
+        rotateLeft(q);   // zig-zag
+      }
 		} else{
 			return true;
 		}
@@ -76,14 +79,14 @@ bool SplayBST::search(int k, TNode*& p) {
 	} else if (k > p->key){
 		TNode*& q = p->right;
 		if (!q) {
-			return;
+			return false;
 		}
 		if (k > q->key) {
-			search(k, q->right);
-			rotateLeft(p);   // zag-zag
+			if (search(k, q->right))
+			   rotateLeft(p);   // zag-zag
 		} else if (k < q->key){
-			search(k, q->left);
-			rotateRight(q);  // zag-zig
+			if (search(k, q->left))
+			   rotateRight(q);  // zag-zig
 		} else{
 			return true;
 		}
