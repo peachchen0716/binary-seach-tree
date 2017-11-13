@@ -58,7 +58,7 @@ int main(){
 		ordinary.insert(temp);
 		random.insert(temp);
 		splaybst.insert(temp);
-		redblackbst.insert(temp);
+		//redblackbst.insert(temp);
 	}
 
 	//search for the most recent nodes
@@ -66,7 +66,7 @@ int main(){
 		ordinary.search(recent[i]);
 		random.search(recent[i]);
 		splaybst.BST::search(recent[i]);
-		redblackbst.BST::search(recent[i]);
+		//redblackbst.BST::search(recent[i]);
 	}
 	cout << "  After " << N << " insertions from file " << fileName << ":" << endl;
 	const int width = 8;
@@ -78,12 +78,12 @@ int main(){
 	ordinary.report("Leaf", true);
 	random.report("Rand", true);
 	splaybst.report("Splay", true);
-	redblackbst.report("RedBl", true);
+	//redblackbst.report("RedBl", true);
 
 	//remove a*N times even int from 2 to 2N for ordinary and randomized trees
 	cout << "\n  After removing a*N times even int" << endl;
-	for (int i=0; i < a*N; i++){
-		int temp = 2*(int)(drand48()*(N-1))+2;
+	for (int i=1; i < a*N; i++){
+		int temp = 2*(int)(drand48()*(i-1))+2;
 		ordinary.remove(temp);
 		random.remove(temp);
 	}
@@ -96,12 +96,13 @@ int main(){
 
 	//search
 	int search_success = 0;
-	for (int i=0; i < b*N; i++){
-		int temp = drand48()*(2*N-1)+1;
+	for (int i=1; i < b*N; i++){
+		int temp = drand48()*(2*i-1)+1;
+		cout << temp << endl;
 		if (splaybst.search(temp))	search_success++;
 	}
 	cout << endl;
-	cout << "  After " << search_success << " searches (" << search_success <<
+	cout << "  After " << b*N << " searches (" << search_success <<
 	" successful):" << endl;
 	cout << "    " << left << setw(width) << "Type";
 	cout << left << setw(width) << "Hits";
