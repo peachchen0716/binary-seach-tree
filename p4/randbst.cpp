@@ -19,13 +19,22 @@ void RandomizedBST::remove(int k) {
     randRemove(k, root);
 }
 
+// Public
+void RandomizedBST::checkError() {
+    int error = 0;
+    checkCount(root, error);
+    cout << "Checking randomized BST: " << error << " errors." << endl;
+}
+
 // Private
 void RandomizedBST::randInsert(int k, TNode*& p){
 
     if (!p){
         p = new TNode(k);
     }else if(drand48() * (p->n + 1) < 1){
+        int temp = p->n;
         rootInsert(k, p);
+        p->n = temp + 1;
     }else if(k < p->key){
         randInsert(k, p->left);
         p->n++;
@@ -74,4 +83,16 @@ void RandomizedBST::fixCount(TNode* p) {
     p->n = 1;
     if (p->left) p->n += p->left->n;
     if (p->right) p->n += p->right->n;
+}
+
+// Private
+int RandomizedBST::checkCount(TNode* p, int& error) {
+  if (!p) return 0;
+  int count = checkCount(p->left, error) + checkCount(p->right, error)+1;
+  if (p->n != count){
+    error++;
+    // cout << "At p = " << p->key << " current count = " << p->n
+    // << " while correct count = " << count << endl;
+  }
+  return count;
 }
