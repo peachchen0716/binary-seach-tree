@@ -40,7 +40,7 @@ void RedBlackBST::redBlackInsert(int k, TNode*& p, bool right) {
         // Case 3 and Case 4: Rotation 2
         if (red(p->left) && red(p->left->left)) {
             // rotate some way
-        	rotateLeft(p);
+        	rotateRight(p);
             p->red = false;
             p->right->red = true;
         }
@@ -53,7 +53,7 @@ void RedBlackBST::redBlackInsert(int k, TNode*& p, bool right) {
     	// Case 3 and Case 4: Rotation 2
     	if (red(p->right) && red(p->right->right)) {
     		// rotate some way
-    		rotateRight(p);
+    		rotateLeft(p);
     		p->red = true;
     		p->left->red = false;
       }

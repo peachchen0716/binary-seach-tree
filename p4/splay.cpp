@@ -95,4 +95,5 @@ bool SplayBST::search(int k, TNode*& p) {
 		}
 		rotateLeft(p);
 	}
+  return true;
 }

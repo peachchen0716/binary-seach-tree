@@ -19,6 +19,8 @@
 #include <queue>
 #include <iomanip>
 
+const int width = 8;
+
 int main(){
 	srand48(time(0));
 
@@ -58,7 +60,7 @@ int main(){
 		ordinary.insert(temp);
 		random.insert(temp);
 		splaybst.insert(temp);
-		//redblackbst.insert(temp);
+		redblackbst.insert(temp);
 	}
 
 	//search for the most recent nodes
@@ -66,19 +68,20 @@ int main(){
 		ordinary.search(recent[i]);
 		random.search(recent[i]);
 		splaybst.BST::search(recent[i]);
-		//redblackbst.BST::search(recent[i]);
+		redblackbst.BST::search(recent[i]);
 	}
 	cout << "  After " << N << " insertions from file " << fileName << ":" << endl;
-	const int width = 8;
-	cout << "    " << left << setw(width) << "Type";
-	cout << left << setw(width) << "Hits";
-	cout << left << setw(width) << "Misses";
-	cout << left << setw(width) << "Recent";
-	cout << endl;
+
+	cout << "    " << left << setw(width) << "Type"
+	<< left << setw(width) << "Hits"
+	<< left << setw(width) << "Misses"
+	<< left << setw(width) << "Recent" << endl;
+
 	ordinary.report("Leaf", true);
 	random.report("Rand", true);
 	splaybst.report("Splay", true);
-	//redblackbst.report("RedBl", true);
+	redblackbst.report("RedBl", true);
+	random.checkError();
 
 	//remove a*N times even int from 2 to 2N for ordinary and randomized trees
 	cout << "\n  After removing a*N times even int" << endl;
@@ -87,27 +90,26 @@ int main(){
 		ordinary.remove(temp);
 		random.remove(temp);
 	}
-	cout << "    " << left << setw(width) << "Type";
-	cout << left << setw(width) << "Hits";
-	cout << left << setw(width) << "Misses";
-	cout << endl;
+	cout << "    " << left << setw(width) << "Type"
+	 << left << setw(width) << "Hits"
+	 << left << setw(width) << "Misses" << endl;
+
 	ordinary.report("Leaf", false);
 	random.report("Rand", false);
+	random.checkError();
 
 	//search
 	int search_success = 0;
 	for (int i=1; i < b*N; i++){
 		int temp = drand48()*(2*i-1)+1;
-		cout << temp << endl;
 		if (splaybst.search(temp))	search_success++;
 	}
 	cout << endl;
 	cout << "  After " << b*N << " searches (" << search_success <<
 	" successful):" << endl;
-	cout << "    " << left << setw(width) << "Type";
-	cout << left << setw(width) << "Hits";
-	cout << left << setw(width) << "Misses";
-	cout << endl;
+	cout << "    " << left << setw(width) << "Type"
+	<< left << setw(width) << "Hits"
+	<< left << setw(width) << "Misses" << endl;
 	splaybst.report("Splay", false);
 	return 0;
 }
