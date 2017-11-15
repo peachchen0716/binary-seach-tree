@@ -28,13 +28,12 @@ void RandomizedBST::checkError() {
 
 // Private
 void RandomizedBST::randInsert(int k, TNode*& p){
-
     if (!p){
         p = new TNode(k);
     }else if(drand48() * (p->n + 1) < 1){
-        int temp = p->n;
+        //int temp = p->n;
+        //p->n = temp + 1;
         rootInsert(k, p);
-        p->n = temp + 1;
     }else if(k < p->key){
         randInsert(k, p->left);
         p->n++;
@@ -91,8 +90,8 @@ int RandomizedBST::checkCount(TNode* p, int& error) {
   int count = checkCount(p->left, error) + checkCount(p->right, error)+1;
   if (p->n != count){
     error++;
-    // cout << "At p = " << p->key << " current count = " << p->n
-    // << " while correct count = " << count << endl;
+    //cout << "At p = " << p->key << " current count = " << p->n
+    //<< " while correct count = " << count << endl;
   }
   return count;
 }

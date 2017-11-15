@@ -14,9 +14,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
-#include <cassert>
 #include <string>
-#include <queue>
 #include <iomanip>
 
 const int width = 8;
@@ -50,8 +48,9 @@ int main(){
 	}
 
 	int recent[N/10];
-
 	int temp;
+
+	//insert
 	for (int i = 0; i < N; i++){
 		inc >> temp;
 		if (i >= 9*N/10){
@@ -84,7 +83,7 @@ int main(){
 	random.checkError();
 
 	//remove a*N times even int from 2 to 2N for ordinary and randomized trees
-	cout << "\n  After removing a*N times even int" << endl;
+	cout << "\n  After " << a*N << " removals" << endl;
 	for (int i=1; i < a*N; i++){
 		int temp = 2*(int)(drand48()*(i-1))+2;
 		ordinary.remove(temp);

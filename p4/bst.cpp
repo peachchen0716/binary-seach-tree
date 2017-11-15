@@ -135,14 +135,34 @@ void BST::rootInsert(int k, TNode*& p){
 void BST::rotateLeft(TNode*& p){
 	TNode* q = p->right;
 	p->right = q->left;
-	q->left = p;
-	p = q;
+
+  p->n = 1;
+  p->n += (p->left) ? p->left->n : 0;
+  p->n += (p->right) ? p->right->n : 0;
+
+  q->left = p;
+
+  q->n = 1;
+  q->n += (q->left) ? q->left->n : 0;
+  q->n += (q->right) ? q->right->n : 0;
+
+  p = q;
 }
 
 void BST::rotateRight(TNode*& p){
 	TNode* q = p->left;
 	p->left = q->right;
+
+  p->n = 1;
+  p->n += (p->left) ? p->left->n : 0;
+  p->n += (p->right) ? p->right->n : 0;
+
 	q->right = p;
+
+  q->n = 1;
+  q->n += (q->left) ? q->left->n : 0;
+  q->n += (q->right) ? q->right->n : 0;
+
 	p = q;
 }
 
@@ -180,10 +200,11 @@ void BST::print(ostream& out, TNode* p) const {
 }
 
 void BST::report(string type, bool recent){
+    const int width = 8;
+
     l = 0;
     numNode = 0;
     inorderTraverse();
-    const int width = 8;
     cout << "    " << left << setw(width) << type;
     //cout << left << setw(width) << l;
     //cout << left << setw(width) << numNode;

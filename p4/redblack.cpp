@@ -23,7 +23,7 @@ void RedBlackBST::insert(int k) {
 void RedBlackBST::redBlackInsert(int k, TNode*& p, bool right) {
     if (!p) {
         // Make a new node and set p to this address.
-    	p = new TNode(k);
+        p = new TNode(k);
         return;
     }
     // Add code here to color flip on the way down.
@@ -36,17 +36,17 @@ void RedBlackBST::redBlackInsert(int k, TNode*& p, bool right) {
         redBlackInsert(k, p->left, false);
         // Case 4: Rotation 1
         if (red(p) && red(p->left) && right) // rotate some way
-        	rotateRight(p);
+        	 rotateRight(p);
         // Case 3 and Case 4: Rotation 2
         if (red(p->left) && red(p->left->left)) {
             // rotate some way
-        	rotateRight(p);
+        	  rotateRight(p);
             p->red = false;
             p->right->red = true;
         }
     } else {
         // Symmetric cases
-    	redBlackInsert(k, p->left, true);
+    	redBlackInsert(k, p->right, true);
     	// Case 4: Rotation 1
     	if (red(p) && red(p->right) && !right) // rotate some way
     		rotateLeft(p);
@@ -54,8 +54,8 @@ void RedBlackBST::redBlackInsert(int k, TNode*& p, bool right) {
     	if (red(p->right) && red(p->right->right)) {
     		// rotate some way
     		rotateLeft(p);
-    		p->red = true;
-    		p->left->red = false;
+    		p->red = false;
+    		p->left->red = true;
       }
     }
 }
