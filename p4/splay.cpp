@@ -59,23 +59,21 @@ bool SplayBST::search(int k, TNode*& p) {
 	if (!p) {
 		return false;
 	}
-  if (k == p->key)  return true;
+	if (k == p->key)  return true;
 	if (k < p->key) {
 		TNode*& q = p->left;
 		if (!q) {
 			return false;
 		}
-    if (k < q->key) {
+	    	if (k < q->key) {
 			if (search(k, q->left)){
-        rotateRight(p);  // zig-zig
-      } else  return false;
+				rotateRight(p);  // zig-zig
+	     		} else  return false;
 		} else if (k > q->key){
 			if (search(k, q->right)){
-        rotateLeft(q);   // zig-zag
-      } else  return false;
-		} else{
-			return true;
-		}
+				rotateLeft(q);   // zig-zag
+	      		} else  return false;
+		} else	return true;
 		rotateRight(p);
 	} else {
 		TNode*& q = p->right;
@@ -84,15 +82,13 @@ bool SplayBST::search(int k, TNode*& p) {
 		}
 		if (k > q->key) {
 			if (search(k, q->right))
-			   rotateLeft(p);   // zag-zag
-      else  return false;
+				rotateLeft(p);   // zag-zag
+      			else  return false;
 		} else if (k < q->key){
 			if (search(k, q->left))
-			   rotateRight(q);  // zag-zig
-      else  return false;
-		} else{
-			return true;
-		}
+				rotateRight(q);  // zag-zig
+      			else  return false;
+		} else	return true;
 		rotateLeft(p);
 	}
   return true;
