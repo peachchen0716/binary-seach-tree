@@ -67,7 +67,7 @@ int main(){
 		ordinary.search(recent[i]);
 		random.search(recent[i]);
 		splaybst.BST::search(recent[i]);
-		redblackbst.BST::search(recent[i]);
+		redblackbst.search(recent[i]);
 	}
 	cout << "  After " << N << " insertions from file " << fileName << ":" << endl;
 
@@ -84,8 +84,9 @@ int main(){
 
 	//remove a*N times even int from 2 to 2N for ordinary and randomized trees
 	cout << "\n  After " << a*N << " removals" << endl;
-	for (int i=1; i < a*N; i++){
-		int temp = 2*(int)(drand48()*(i-1))+2;
+	for (int i=0; i < a*N; i++){
+		int temp = 2*(int)(drand48()*N)+2;
+
 		ordinary.remove(temp);
 		random.remove(temp);
 	}
@@ -99,8 +100,8 @@ int main(){
 
 	//search
 	int search_success = 0;
-	for (int i=1; i < b*N; i++){
-		int temp = drand48()*(2*i-1)+1;
+	for (int i=0; i < b*N; i++){
+		int temp = (int)(drand48()*2*N)+1;
 		if (splaybst.search(temp))	search_success++;
 	}
 	cout << endl;

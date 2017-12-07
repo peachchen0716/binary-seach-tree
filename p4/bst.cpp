@@ -119,7 +119,6 @@ bool BST::search(TNode*& p, const int k){
     }
 }
 
-
 void BST::rootInsert(int k, TNode*& p){
 	if (!p){
 		p = new TNode(k);
@@ -135,34 +134,14 @@ void BST::rootInsert(int k, TNode*& p){
 void BST::rotateLeft(TNode*& p){
 	TNode* q = p->right;
 	p->right = q->left;
-
-  p->n = 1;
-  p->n += (p->left) ? p->left->n : 0;
-  p->n += (p->right) ? p->right->n : 0;
-
   q->left = p;
-
-  q->n = 1;
-  q->n += (q->left) ? q->left->n : 0;
-  q->n += (q->right) ? q->right->n : 0;
-
   p = q;
 }
 
 void BST::rotateRight(TNode*& p){
 	TNode* q = p->left;
 	p->left = q->right;
-
-  p->n = 1;
-  p->n += (p->left) ? p->left->n : 0;
-  p->n += (p->right) ? p->right->n : 0;
-
 	q->right = p;
-
-  q->n = 1;
-  q->n += (q->left) ? q->left->n : 0;
-  q->n += (q->right) ? q->right->n : 0;
-
 	p = q;
 }
 
@@ -195,6 +174,7 @@ void BST::kill(TNode* p) {
 
 // Inorder traversal
 void BST::print(ostream& out, TNode* p) const {
+    out << p->key << "  ";
     if (p->left) print(out, p->left);          // Print smaller words// Print current word
     if (p->right) print(out, p->right);        // Print larger words
 }

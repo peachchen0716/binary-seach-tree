@@ -15,6 +15,9 @@ public:
 	virtual void insert(int);
 	virtual void remove(int);
 	void checkError();
+protected:
+	virtual void rotateLeft(TNode*&);
+	virtual void rotateRight(TNode*&);
 private:
 	void randInsert(int, TNode*&);
   bool randRemove(int&, TNode*&);

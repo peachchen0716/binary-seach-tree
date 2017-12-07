@@ -12,10 +12,6 @@ RedBlackBST::RedBlackBST() : BST() {}
 void RedBlackBST::insert(int k) {
     redBlackInsert(k, root, false);
     root->red = false;
-    if (red(root->left) && red(root->right)){
-    	root->left->red = false;
-    	root->right->red = false;
-    }
 }
 
 // Private

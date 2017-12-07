@@ -56,8 +56,8 @@ protected:
     int numNode;
 
    void rootInsert(int, TNode*&);
-   void rotateLeft(TNode*&);
-   void rotateRight(TNode*&);
+   virtual void rotateLeft(TNode*&);
+   virtual void rotateRight(TNode*&);
    void inorderTraverse();
    void inorder(TNode*&, int);
 

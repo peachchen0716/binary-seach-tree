@@ -17,7 +17,7 @@ public:
 
 private:
 	void insert(int, TNode*&);
-	bool search(int, TNode*&);
+	TNode* search(int, TNode*&);
 };
 
 
